@@ -5,6 +5,10 @@ class Feedback(models.Model):
     first_name = models.CharField(max_length=512)
     last_name = models.CharField(max_length=512)
     phone_number = models.CharField(max_length=32)
+    status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} {self.phone_number} {self.status}"
 
 
 class BookingDate(models.Model):
@@ -16,22 +20,37 @@ class Room(models.Model):
     number = models.IntegerField(unique=True)
     booked = models.ManyToManyField(BookingDate)
 
+    def __str__(self):
+        return f"{self.number}"
+
 
 class Standard(models.Model):
     rooms = models.ManyToManyField(Room)
     price = models.IntegerField(default=2200)
+
+    def __str__(self):
+        return f"Standard - {self.price}"
 
 
 class Luxe(models.Model):
     rooms = models.ManyToManyField(Room)
     price = models.IntegerField(default=3400)
 
+    def __str__(self):
+        return f"Luxe - {self.price}"
+
 
 class LuxePlus(models.Model):
     rooms = models.ManyToManyField(Room)
     price = models.IntegerField(default=3700)
 
+    def __str__(self):
+        return f"LuxePlus - {self.price}"
+
 
 class LuxePremium(models.Model):
     rooms = models.ManyToManyField(Room)
     price = models.IntegerField(default=4200)
+
+    def __str__(self):
+        return f"LuxePremium - {self.price}"

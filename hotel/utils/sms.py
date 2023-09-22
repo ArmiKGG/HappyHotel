@@ -6,10 +6,7 @@ smtp_server = 'smtp.yandex.ru'
 sender_email = 'schastie-hotel@yandex.ru'
 password = 'tnoleanooqxbofxg'
 
-message = """
-Subject: {}
-
-{}"""
+message = """Subject: {}\n\n{}"""
 
 
 def send_email(receiver_email, subject, msg):
