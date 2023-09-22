@@ -18,7 +18,7 @@ class BookingDate(models.Model):
 
 class Room(models.Model):
     number = models.IntegerField(unique=True)
-    booked = models.ManyToManyField(BookingDate)
+    booked = models.ManyToManyField(BookingDate, blank=True)
 
     def __str__(self):
         return f"{self.number}"
@@ -27,6 +27,7 @@ class Room(models.Model):
 class Standard(models.Model):
     rooms = models.ManyToManyField(Room)
     price = models.IntegerField(default=2200)
+    persons = models.IntegerField(default=1)
 
     def __str__(self):
         return f"Standard - {self.price}"
@@ -35,6 +36,7 @@ class Standard(models.Model):
 class Luxe(models.Model):
     rooms = models.ManyToManyField(Room)
     price = models.IntegerField(default=3400)
+    persons = models.IntegerField(default=2)
 
     def __str__(self):
         return f"Luxe - {self.price}"
@@ -43,6 +45,7 @@ class Luxe(models.Model):
 class LuxePlus(models.Model):
     rooms = models.ManyToManyField(Room)
     price = models.IntegerField(default=3700)
+    persons = models.IntegerField(default=2)
 
     def __str__(self):
         return f"LuxePlus - {self.price}"
@@ -51,6 +54,7 @@ class LuxePlus(models.Model):
 class LuxePremium(models.Model):
     rooms = models.ManyToManyField(Room)
     price = models.IntegerField(default=4200)
+    persons = models.IntegerField(default=3)
 
     def __str__(self):
         return f"LuxePremium - {self.price}"

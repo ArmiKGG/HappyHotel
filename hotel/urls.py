@@ -21,5 +21,6 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('feedback/', views.FeedBack.as_view())
+    path('feedback/', views.FeedBack.as_view()),
+    path('rooms/', views.ReturnFreeRooms.as_view())
 ]
