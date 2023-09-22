@@ -1,7 +1,9 @@
-from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import FeedBackSerializer
+from rest_framework.views import APIView
+
 from .models import Feedback
+from .serializers import FeedBackSerializer
+from .utils.sms import sender_email
 
 
 class FeedBack(APIView):
@@ -18,6 +20,9 @@ class FeedBack(APIView):
             phone_number=validated_data["phone_number"]
         )
 
-
+        msg = f"свяжитесь с - {validated_data['first_name']} {validated_data['last_name']} по номеру телефона." \
+              f"Номер телефона: {validated_data['phone_number']}" \
+              f"Уникальный ИД-идентификатор в админке у данной заявки {obj.id}"
+        sender_email(f"{validated_data['first_name']} {validated_data['last_name']}", msg)
 
         return Response(status=200)
