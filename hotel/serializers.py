@@ -9,10 +9,28 @@ class RequestSerializer(serializers.Serializer):
     persons = serializers.IntegerField()
 
 
+class RequestBronSerializer(serializers.Serializer):
+    first_name = serializers.CharField(max_length=256)
+    last_name = serializers.CharField(max_length=256)
+    phone = serializers.CharField(max_length=256)
+    comment = serializers.CharField(max_length=1024)
+
+    start_date = serializers.DateField()
+    end_date = serializers.DateField()
+
+    amount = serializers.IntegerField(max_value=3)
+
+    type = serializers.ChoiceField(choices=["standard", "luxe", "luxe plus", "luxe premium"])
+
+    nights = serializers.IntegerField()
+
+
+
 class BookedSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookingDate
         fields = "__all__"
+
 
 class FeedBackSerializer(serializers.ModelSerializer):
     class Meta:
