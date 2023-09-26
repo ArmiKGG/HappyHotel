@@ -179,7 +179,8 @@ class Book(APIView):
               f"Количество взрослых гостей: {validated_data['amount']}\n" \
               f"Тип номера: {validated_data['type']}\n" \
               f"Количество ночей: {validated_data['nights']}\n" \
-              f"Цена: {validated_data['nights'] * stand_obj.price}"
+              f"Цена: {validated_data['nights'] * stand_obj.price}\n" \
+              f"Номера которые свободные на эти даты: {rooms}"
         send_email(sender_email, f"{validated_data['first_name']} {validated_data['last_name']}", msg)
 
         return Response(status=200)
