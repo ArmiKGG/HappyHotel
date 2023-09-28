@@ -1,0 +1,79 @@
+.block {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
+	height: 2rem;
+}
+
+.error__text {
+	color: var(--red-color, #b3261e);
+	font-family: 'Noto Sans';
+	font-size: 0.75rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 160%; /* 1.2rem */
+}
+
+.control {
+	font-family: arial;
+	display: block;
+	position: relative;
+	padding-left: 30px;
+	margin-bottom: 5px;
+	padding-top: 3px;
+	cursor: pointer;
+	font-size: 16px;
+}
+.control input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+.control_indicator {
+	position: absolute;
+	top: 0px;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background: #ffffff;
+	border: 2px solid #875b52;
+	border-radius: 0px;
+}
+.control:hover input ~ .control_indicator,
+.control input:focus ~ .control_indicator {
+	background: #ffffff;
+}
+
+.control input:checked ~ .control_indicator {
+	background: #875b52;
+}
+.control:hover input:not([disabled]):checked ~ .control_indicator,
+.control input:checked:focus ~ .control_indicator {
+	background: #875b52;
+}
+.control input:disabled ~ .control_indicator {
+	background: #e6e6e6;
+	opacity: 0.6;
+	pointer-events: none;
+}
+.control_indicator:after {
+	box-sizing: unset;
+	content: '';
+	position: absolute;
+	display: none;
+}
+.control input:checked ~ .control_indicator:after {
+	display: block;
+}
+.control_checkbox .control_indicator:after {
+	left: 8px;
+	top: 4px;
+	width: 4px;
+	height: 10px;
+	border: solid #ffffff;
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
+}
+.control_checkbox input:disabled ~ .control_indicator:after {
+	border-color: #7b7b7b;
+}

@@ -1,0 +1,34 @@
+.reviews {
+	padding: 6.25rem 10.31rem;
+	background: var(--grey-color, #fff8f6);
+	display: flex;
+	flex-direction: column;
+	gap: 5rem;
+}
+
+.reviews__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.slider__buttons {
+	display: flex;
+}
+
+.slider__buttons svg {
+	cursor: pointer;
+}
+
+.reviews__slider {
+	display: flex;
+	gap: 2rem;
+}
+
+@media (max-width: 460px) {
+	.reviews {
+		flex-direction: column;
+		padding: 4.38rem 1.25rem;
+		align-items: center;
+	}
+}

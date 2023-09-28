@@ -1,0 +1,133 @@
+.header {
+	height: 6.87rem;
+	width: 100vw;
+	border-bottom: 0.0625rem solid white;
+
+	display: flex;
+
+	justify-content: space-between;
+	align-items: center;
+
+	padding: 0 10.31rem;
+
+	position: absolute;
+	top: 0;
+}
+
+.burger__hide {
+	position: absolute;
+	top: -27.0625rem;
+	left: 0;
+	width: 100vw;
+	height: 27.0625rem;
+	background: var(--accent-color, #875b52);
+	transition: 0.3s all;
+}
+
+.burger__show {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 27.0625rem;
+	background: var(--accent-color, #875b52);
+	transition: 0.3s all;
+}
+
+.logo {
+	width: 9.875rem;
+	height: 4.375rem;
+}
+.header__links {
+	display: flex;
+	gap: 1.88rem;
+}
+
+.header__link {
+	color: var(--text-color);
+	font-family: 'Noto Sans';
+	font-size: 1.3rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 160%; /* 1.6rem */
+
+	cursor: pointer;
+}
+
+.burger__menu {
+	cursor: pointer;
+	display: none;
+}
+
+.burger__show {
+	display: flex;
+	flex-direction: column;
+	/* display: none; */
+}
+
+.burger__btn {
+	position: absolute;
+	right: 1.25rem;
+	top: 1rem;
+	cursor: pointer;
+}
+
+@media (max-width: 1440px) {
+	.header__link {
+		color: var(--text-color);
+		font-family: 'Noto Sans';
+		font-size: 1rem;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 160%; /* 1.6rem */
+
+		cursor: pointer;
+	}
+}
+
+@media (max-width: 1440px) {
+	.logo {
+		width: 7.875rem;
+		height: 2.375rem;
+	}
+}
+
+@media (max-width: 1280px) {
+	.header {
+		padding: 0 5rem;
+	}
+}
+
+@media (max-width: 1000px) {
+	.header__link {
+		display: none;
+	}
+	.burger__menu {
+		display: block;
+	}
+}
+
+@media (max-width: 460px) {
+	.header {
+		padding: 0 1.25rem;
+		border-bottom: none;
+	}
+	.burger__show .header__link {
+		display: block;
+		font-size: 1rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 160%; /* 1.5rem */
+		text-decoration-line: underline;
+	}
+	.burger__show {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		gap: 3rem;
+	}
+	.header__links {
+		flex-direction: column;
+		gap: 0.8rem;
+	}
+}
