@@ -13,7 +13,7 @@ class RequestSerializer(serializers.Serializer):
 class RequestBronSerializer(serializers.Serializer):
     first_name = serializers.CharField(max_length=256)
     last_name = serializers.CharField(max_length=256)
-    phone = serializers.CharField(max_length=256)
+    phone_number = serializers.CharField(max_length=256)
     comment = serializers.CharField(max_length=1024)
 
     start_date = serializers.DateField()
