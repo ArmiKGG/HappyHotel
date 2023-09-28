@@ -8,8 +8,7 @@ export const sendFeedback = createAsyncThunk('user/sendFeedback', async (data, t
 			`${BASE_URL}/feedback/`,
 			{ first_name: data.firstName, last_name: data.lastName, phone_number: data.phoneNumber },
 			{
-				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				withCredentials: true,
+				headers: { 'Content-Type': 'application/json' }
 			},
 		);
 		return res.data;
@@ -31,10 +30,7 @@ export const getRooms = createAsyncThunk('user/getRooms', async (data, thunkAPI)
 				headers: {
 					'Content-Type': 'application/json',
 				},
-			},
-			{
-				withCredentials: true,
-			},
+			}
 		);
 		return res.data;
 	} catch (err) {
