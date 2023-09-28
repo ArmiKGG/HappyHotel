@@ -42,8 +42,8 @@ export const sendBook = createAsyncThunk('user/sendBook', async (data, thunkAPI)
 	let headers = { 'Content-Type': 'application/json' };
 
 	try {
-		const res = await axios.post(`${BASE_URL}/book/`, {
-			params: {
+		const res = await axios.post(`${BASE_URL}/book/`,
+			{
 				first_name: data.firstName,
 				last_name: data.lastName,
 				phone: data.phoneNumber,
@@ -54,9 +54,7 @@ export const sendBook = createAsyncThunk('user/sendBook', async (data, thunkAPI)
 				type: data.type,
 				nights: data.nights,
 			},
-			headers: headers,
-			withCredentials: true,
-		});
+		);
 		return res.data;
 	} catch (err) {
 		return thunkAPI.rejectWithValue(err);
