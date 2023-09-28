@@ -1,0 +1,13 @@
+version: '3.3'
+
+services:
+  backend:
+    restart: always
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    environment:
+      - RUN_MIGRATIONS=1
+    command: python ./hotel/manage.py runserver 0.0.0.0:8000
+
