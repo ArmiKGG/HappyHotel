@@ -7,6 +7,7 @@ class RequestSerializer(serializers.Serializer):
     start_date = serializers.DateField()
     end_date = serializers.DateField()
     persons = serializers.IntegerField()
+    type = serializers.ChoiceField(choices=["standard", "luxe", "luxe plus", "luxe premium"], required=False)
 
 
 class RequestBronSerializer(serializers.Serializer):
@@ -23,7 +24,6 @@ class RequestBronSerializer(serializers.Serializer):
     type = serializers.ChoiceField(choices=["standard", "luxe", "luxe plus", "luxe premium"])
 
     nights = serializers.IntegerField()
-
 
 
 class BookedSerializer(serializers.ModelSerializer):
