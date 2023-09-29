@@ -230,7 +230,7 @@ class Book(APIView):
                 rooms.append(i.number)
 
         msg = f"Cвяжитесь с клиентом: {validated_data['first_name']} {validated_data['last_name']}\n" \
-              f"Номер телефона: {validated_data['phone']}\n" \
+              f"Номер телефона: {validated_data['phone_number']}\n" \
               f"Комментарий клиента к заказу: {validated_data['comment']}\n" \
               f"Даты бронирования {validated_data['start_date']} - {validated_data['end_date']}\n" \
               f"Количество взрослых гостей: {validated_data['amount']}\n" \
