@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BASE_URL } from '../../constats';
 
@@ -8,7 +8,7 @@ export const sendFeedback = createAsyncThunk('user/sendFeedback', async (data, t
 			`${BASE_URL}/feedback/`,
 			{ first_name: data.firstName, last_name: data.lastName, phone_number: data.phoneNumber },
 			{
-				headers: { 'Content-Type': 'application/json' }
+				headers: { 'Content-Type': 'application/json' },
 			},
 		);
 		return res.data;
@@ -25,12 +25,13 @@ export const getRooms = createAsyncThunk('user/getRooms', async (data, thunkAPI)
 				start_date: data.startDate,
 				end_date: data.endDate,
 				persons: data.persons,
+				type: data.type,
 			},
 			{
 				headers: {
 					'Content-Type': 'application/json',
 				},
-			}
+			},
 		);
 		return res.data;
 	} catch (err) {
@@ -39,20 +40,24 @@ export const getRooms = createAsyncThunk('user/getRooms', async (data, thunkAPI)
 });
 
 export const sendBook = createAsyncThunk('user/sendBook', async (data, thunkAPI) => {
-	let headers = { 'Content-Type': 'application/json' };
-
 	try {
-		const res = await axios.post(`${BASE_URL}/book/`,
+		const res = await axios.post(
+			`${BASE_URL}/book/`,
 			{
-				first_name: data.firstName,
-				last_name: data.lastName,
-				phone: data.phoneNumber,
+				first_name: data.first_name,
+				last_name: data.last_name,
+				phone_humber: data.phone_number,
 				comment: data.comment,
-				start_date: data.startDate,
-				end_date: data.endDate,
+				start_date: data.start_date,
+				end_date: data.end_date,
 				amount: data.amount,
 				type: data.type,
 				nights: data.nights,
+			},
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
 			},
 		);
 		return res.data;
@@ -61,13 +66,17 @@ export const sendBook = createAsyncThunk('user/sendBook', async (data, thunkAPI)
 	}
 });
 
+export const selectRoom = createAction('SELECT-ROOM');
+export const clearRooms = createAction('CLEAR-ROOMS');
+
 const userSlice = createSlice({
 	name: 'user',
 	initialState: {
-		data: {},
+		data: { standart: 0, luxe: 1, luxeplus: 1, luxepremium: 0 },
 		isLoading: false,
 		isError: false,
 		isSuccess: false,
+		selectedRoomData: {},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(sendFeedback.pending, (state) => {
@@ -117,6 +126,15 @@ const userSlice = createSlice({
 			state.isLoading = false;
 			state.isError = true;
 			state.isSuccess = false;
+		});
+
+		builder.addCase(selectRoom, (state, action) => {
+			console.log(action.payload);
+			state.selectedRoomData = action.payload;
+		});
+
+		builder.addCase(clearRooms, (state) => {
+			state.data = null;
 		});
 	},
 });

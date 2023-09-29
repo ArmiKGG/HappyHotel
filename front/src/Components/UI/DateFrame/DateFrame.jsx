@@ -97,13 +97,22 @@ function DateFrame({ main, toDate, setToDate, fromDate, setFromDate, persons, se
 					</div>
 				) : null}
 			</div>
-
-			<Link
-				to="/reservation"
-				className={styles.search__btn}
-				onClick={handleSubmit}>
-				Найти номер
-			</Link>
+			{fromDate > toDate ? (
+				<Link
+					to="/reservation"
+					className={styles.search__btn}
+					onClick={handleSubmit}
+					state={{ toDate: toDate, fromDate: fromDate, persons: persons }}>
+					Найти номер
+				</Link>
+			) : (
+				<button
+					className={styles.search__btn}
+					onClick={handleSubmit}
+					state={{ toDate: toDate, fromDate: fromDate, persons: persons }}>
+					Найти номер
+				</button>
+			)}
 		</div>
 	);
 }

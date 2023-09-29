@@ -25,6 +25,10 @@ function App() {
 					path="/reservation"
 					element={<ReservationPage />}
 				/>
+				<Route
+					path="/reservation/:type"
+					element={<ReservationPage />}
+				/>
 			</Routes>
 		</div>
 	);

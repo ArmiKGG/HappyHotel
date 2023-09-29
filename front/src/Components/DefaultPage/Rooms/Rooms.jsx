@@ -5,6 +5,7 @@ import RoomItem from './RoomItem/RoomItem';
 const rooms = [
 	{
 		id: 1,
+		type: 'standart',
 		name: 'Номер Стандарт',
 		maxPerson: 2,
 		text: 'В этом номере вы найдете удобную кровать, хорошую мебель и необходимое оборудование для проживания',
@@ -20,6 +21,7 @@ const rooms = [
 	},
 	{
 		id: 2,
+		type: 'luxe',
 		name: 'Номер Люкс',
 		maxPerson: 3,
 		text: 'Люксовый номер предлагает более просторное проживание с дополнительными удобствами',
@@ -34,6 +36,7 @@ const rooms = [
 	},
 	{
 		id: 3,
+		type: 'luxeplus',
 		name: 'Номер Люкс +',
 		maxPerson: 3,
 		text: 'Этот вариант для тех, кто хочет насладиться еще большим комфортом с обновленным ремонтом',
@@ -49,6 +52,7 @@ const rooms = [
 	},
 	{
 		id: 4,
+		type: 'luxepremium',
 		name: 'Номер Люкс Премиум',
 		maxPerson: 4,
 		text: 'Идеальный выбор для компании или семьи, которая ищет удобное и просторное проживание',
@@ -61,28 +65,38 @@ const rooms = [
 	},
 ];
 
-function Rooms() {
+function Rooms({ data }) {
 	return (
 		<section
 			id="rooms"
-			className={styles.rooms}>
-			<div className="block__title">
-				<div className="title__line"></div>Номера
-				<div className="title__line"></div>
-			</div>
+			className={!data ? styles.rooms : styles.rooms__book}>
+			{!data && (
+				<div className="block__title">
+					<div className="title__line"></div>Номера
+					<div className="title__line"></div>
+				</div>
+			)}
+
 			{rooms.map((el, index) => {
-				return (
-					<RoomItem
-						key={index}
-						id={el.id}
-						name={el.name}
-						text={el.text}
-						img={el.img}
-						modalImages={el.modalImages}
-						maxPerson={el.maxPerson}
-						price={el.price}
-					/>
-				);
+				if (data) {
+					if (data[el.type] > 0) {
+						return (
+							<RoomItem
+								key={index}
+								{...el}
+								isBook={data}
+							/>
+						);
+					}
+				} else {
+					return (
+						<RoomItem
+							key={index}
+							{...el}
+							isBook={data}
+						/>
+					);
+				}
 			})}
 		</section>
 	);

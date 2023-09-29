@@ -2,11 +2,11 @@ import React from 'react';
 import styles from './Services.module.css';
 import { ReactComponent as Wash } from './../../../Svg/wash.svg';
 
-function Services() {
+function Services({ isBook }) {
 	return (
 		<section
 			id="services"
-			className={styles.services}>
+			className={!isBook ? styles.services : styles.services__without__bg}>
 			{' '}
 			<div className="block__title">
 				<div className="title__line"></div>Наши услуги

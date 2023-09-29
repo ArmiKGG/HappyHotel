@@ -62,7 +62,6 @@ function Form({ formState, setFormState, validationState, setValidationState, se
 				title="Телефон*"
 				value={telValue}
 				name="telValue"
-				pattern={telPattern}
 				className={setClassNameByValid(validTel)}
 				placeholder=""
 				type="text"
@@ -105,7 +104,7 @@ function Form({ formState, setFormState, validationState, setValidationState, se
 			</CheckBoxArea>
 			<button
 				className={styles.primary__btn}
-				onClick={handleSubmit}>
+				onClick={send}>
 				Забронировать
 			</button>
 		</div>

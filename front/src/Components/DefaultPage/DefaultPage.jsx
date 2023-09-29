@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import About from './About/About';
 import Contacts from './Contacts/Contacts';
 
@@ -12,16 +12,23 @@ import Reviews from './Reviews/Reviews';
 import Rooms from './Rooms/Rooms';
 import Services from './ServicesBlock/Services';
 import Feedback from './Feedback/Feedback';
+import { useDispatch } from 'react-redux';
+import { clearRooms, selectRoom } from '../../Redux/slices/userSlice';
 
 function DefaultPage() {
 	window.scrollTo(0, 0);
+	const dispatch = useDispatch();
+	React.useEffect(() => {
+		dispatch(selectRoom({}));
+		dispatch(clearRooms());
+	}, []);
 	return (
 		<div>
 			<Header main={true} />
 			<PreviewBlock />
 			<About />
 			<Preferences />
-			<Rooms />
+			<Rooms data={false} />
 			<Services />
 			<Gallery />
 			<Reviews />

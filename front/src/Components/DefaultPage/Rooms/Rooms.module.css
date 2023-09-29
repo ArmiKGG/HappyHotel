@@ -6,9 +6,21 @@
 	gap: 4.5rem;
 }
 
+.rooms__book {
+	padding: 1.9rem 0rem;
+	display: flex;
+	flex-wrap: wrap;
+
+	gap: 1.88rem;
+	row-gap: 4.37rem;
+}
+
 @media (max-width: 1280px) {
 	.rooms {
 		padding: 6.25rem 5rem;
+	}
+	.rooms_book {
+		padding: 1.9rem 0rem;
 	}
 }
 
@@ -16,6 +28,10 @@
 	.rooms {
 		flex-direction: column;
 		padding: 4.38rem 1.25rem;
+		align-items: center;
+	}
+	.rooms__book {
+		flex-direction: column;
 		align-items: center;
 	}
 

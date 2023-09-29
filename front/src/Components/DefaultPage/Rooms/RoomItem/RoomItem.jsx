@@ -9,16 +9,21 @@ import { ReactComponent as Slippers } from './../../../../Svg/slippers.svg';
 import { ReactComponent as Fridge } from './../../../../Svg/fridge.svg';
 import { useDisclosure } from '@chakra-ui/react';
 import ModalImages from '../../../UI/ModalImages/ModalImages';
+import { NavLink } from 'react-router-dom';
+import { selectRoom } from '../../../../Redux/slices/userSlice';
+import { useDispatch } from 'react-redux';
 
-function RoomItem({ id, name, text, maxPerson, img, price, modalImages }) {
+function RoomItem({ id, name, type, text, maxPerson, img, price, modalImages, isBook }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [currentImage, setCurrentImage] = useState(0);
+	const dispatch = useDispatch();
 
 	return (
-		<div className={styles.room__item}>
+		<div className={!isBook ? styles.room__item : styles.room__item__column}>
 			<img
 				src={img}
 				alt=""
+				onClick={onOpen}
 			/>
 			<div className={styles.info__block}>
 				<div className={styles.info__header}>
@@ -60,7 +65,24 @@ function RoomItem({ id, name, text, maxPerson, img, price, modalImages }) {
 						<span>{`${price} ₽ / сутки`}</span>
 					</div>
 					<div className={styles.footer__buttons}>
-						<button className={styles.primary__btn}>Забронировать</button>
+						{isBook ? (
+							<button
+								onClick={() => {
+									dispatch(selectRoom({ id, name, type, price }));
+								}}
+								className={styles.primary__btn}>
+								Забронировать
+							</button>
+						) : (
+							<NavLink
+								to={`/reservation/${type}`}
+								onClick={() => {
+									dispatch(selectRoom({ id, name, type, price }));
+								}}
+								className={styles.primary__btn}>
+								Забронировать
+							</NavLink>
+						)}
 						<button
 							onClick={onOpen}
 							className={styles.secondary__btn}>
