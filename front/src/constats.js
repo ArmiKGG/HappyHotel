@@ -7,7 +7,7 @@ export const ROOMS = 'rooms';
 export const ABOUT = 'about';
 export const SERVICES = 'services';
 export const CONTACTS = 'contacts';
-export const BASE_URL = '127.0.0.1:8000';
+export const BASE_URL = 'http://localhost:8000';
 
 export const cyrillicPattern = /^[\u0400-\u04FF]+$/;
 export const telPattern = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/;
@@ -46,4 +46,12 @@ export const normalize_count_form = (number, words_arr) => {
 export const getNightsCount = (toDate, fromDate) => {
 	let msDay = 60 * 60 * 24 * 1000;
 	return Math.floor((fromDate - toDate) / msDay);
+};
+
+export const getDateToString = (date) => {
+	let year = date.getFullYear();
+	let month = date.getMonth() + 1;
+	let day = date.getDate();
+
+	return `${year}-${month}-${day}`;
 };

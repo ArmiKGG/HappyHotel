@@ -12,8 +12,25 @@ class Feedback(models.Model):
 
 
 class BookingDate(models.Model):
-    start_date = models.DateField()
-    end_date = models.DateField()
+    first_name = models.CharField(max_length=512, null=True, blank=True)
+    last_name = models.CharField(max_length=512, null=True, blank=True)
+    phone_number = models.CharField(max_length=32, null=True, blank=True)
+    comment = models.CharField(max_length=512, null=True, blank=True)
+    amount = models.IntegerField(default=1)
+    nights = models.IntegerField(default=1)
+    price = models.IntegerField(default=0)
+    type = models.CharField(max_length=512, null=True, blank=True)
+    number = models.CharField(max_length=32, null=True, blank=True)
+
+    free_rooms = models.CharField(max_length=512, null=True, blank=True)
+
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+
+    status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.number} {self.first_name} {self.last_name} {self.start_date}: {self.end_date} {self.status}"
 
 
 class Room(models.Model):

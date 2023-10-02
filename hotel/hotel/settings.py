@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,8 +25,6 @@ SECRET_KEY = 'django-insecure-coq_&xptvj1po7u28c#z1!bm4+%owx(4+o%pg0vw$@_v)b%ngl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'hotel',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +47,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'hotel.urls'
@@ -124,3 +126,15 @@ EMAIL_PORT = 465
 EMAIL_HOST = "smtp.yandex.ru"
 EMAIL_HOST_PASSWORD = "Hotel1chastye!"
 EMAIL_HOST_USER = "hotelschastye@yandex.ru"
+
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "content-disposition",
+    "Access-Control-Allow-Headers",
+    "Access-Control-Allow-Origin",
+    "Key",
+]
+
+

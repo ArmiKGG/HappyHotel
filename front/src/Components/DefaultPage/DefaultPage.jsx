@@ -28,7 +28,7 @@ function DefaultPage() {
 			<PreviewBlock />
 			<About />
 			<Preferences />
-			<Rooms data={false} />
+			<Rooms data={null} />
 			<Services />
 			<Gallery />
 			<Reviews />

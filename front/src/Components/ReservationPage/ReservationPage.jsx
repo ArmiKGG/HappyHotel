@@ -2,21 +2,24 @@ import React from 'react';
 import styles from './ReservationPage.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import DateFrame from '../UI/DateFrame/DateFrame';
-
+import { useDisclosure, useToast } from '@chakra-ui/react';
 import { getRooms, sendBook } from '../../Redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 
 import { useLocation, useParams } from 'react-router-dom';
 
-import { getNightsCount } from '../../constats';
+import { cyrillicPattern, getDateToString, getNightsCount, telPattern } from '../../constats';
 import LoaderData from './LoaderData/LoaderData';
+import ModalStatus from '../UI/ModalStatus/ModalStatus';
 
 function ReservationPage() {
 	const dispatch = useDispatch();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const params = useParams();
+
 	let { state } = useLocation();
+	const toast = useToast();
 
 	const [toDate, setToDate] = React.useState(state?.toDate ? state.toDate : new Date());
 
@@ -30,6 +33,7 @@ function ReservationPage() {
 		telValue: '',
 		commentsValue: '',
 		checked: false,
+		type: '',
 	});
 	const [validationState, setValidationState] = React.useState({
 		validName: false,
@@ -38,37 +42,85 @@ function ReservationPage() {
 		validChecked: false,
 	});
 
+	const { nameValue, lastNameValue, telValue, commentsValue, checked, type } = formState;
+
 	const handleSubmit = () => {
-		console.log(params);
-		if (!params.type) {
-			dispatch(getRooms({ start_date: toDate, end_date: fromDate, persons: persons.adults + persons.child }));
+		if (fromDate > toDate) {
+			if (persons.adults > 0) {
+				if (!params.type) {
+					dispatch(
+						getRooms({
+							start_date: getDateToString(toDate),
+							end_date: getDateToString(fromDate),
+							persons: persons.adults + persons.child,
+						}),
+					);
+				} else {
+					dispatch(
+						getRooms({
+							start_date: getDateToString(toDate),
+							end_date: getDateToString(fromDate),
+							persons: persons.adults + persons.child,
+							type: params.type,
+						}),
+					);
+				}
+			} else {
+				toast({
+					title: 'Внимание',
+					description: 'В заявке должен быть как минимум 1 взрослый человек',
+					status: 'warning',
+					duration: 4000,
+					isClosable: true,
+				});
+			}
 		} else {
-			dispatch(
-				getRooms({
-					start_date: toDate,
-					end_date: fromDate,
-					persons: persons.adults + persons.child,
-					type: params.type,
-				}),
-			);
+			toast({
+				title: 'Внимание',
+				description: 'Дата заезда должна быть раньше даты выезда',
+				status: 'warning',
+				duration: 9000,
+				isClosable: true,
+			});
 		}
 	};
 
 	const bookSubmit = () => {
-		if (Object.values(validationState).every((el) => el === false))
+		const isNameValid = cyrillicPattern.test(nameValue);
+		const isLastNameValid = cyrillicPattern.test(lastNameValue);
+		const isTelValid = telPattern.test(telValue);
+		const isCheckedValid = checked;
+
+		setValidationState({
+			validName: !isNameValid,
+			validLastName: !isLastNameValid,
+			validTel: !isTelValid,
+			validChecked: !isCheckedValid,
+		});
+		if (isNameValid && isLastNameValid && isTelValid && isCheckedValid) {
 			dispatch(
 				sendBook({
-					first_name: formState.nameValue,
-					last_name: formState.lastNameValue,
-					phone_number: formState.telValue,
-					comment: formState.commentsValue,
-					start_date: toDate,
-					end_date: fromDate,
+					first_name: nameValue,
+					last_name: lastNameValue,
+					phone_number: telValue,
+					comment: commentsValue,
+					start_date: getDateToString(toDate),
+					end_date: getDateToString(fromDate),
 					amount: persons.child + persons.adults,
 					type: params.type,
 					nights: getNightsCount(toDate, fromDate) + 1,
 				}),
 			);
+			setTimeout(onOpen, 1000);
+			setFormState({
+				nameValue: '',
+				lastNameValue: '',
+				telValue: '',
+				commentsValue: '',
+				checked: false,
+				type: '',
+			});
+		}
 	};
 
 	React.useEffect(() => {
@@ -98,6 +150,11 @@ function ReservationPage() {
 						setValidationState={setValidationState}
 						bookSubmit={bookSubmit}
 						params={params}
+					/>
+					<ModalStatus
+						isOpen={isOpen}
+						onClose={onClose}
+						goMain={true}
 					/>
 				</div>
 			</div>

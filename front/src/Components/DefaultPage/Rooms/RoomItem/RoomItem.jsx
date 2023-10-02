@@ -9,7 +9,7 @@ import { ReactComponent as Slippers } from './../../../../Svg/slippers.svg';
 import { ReactComponent as Fridge } from './../../../../Svg/fridge.svg';
 import { useDisclosure } from '@chakra-ui/react';
 import ModalImages from '../../../UI/ModalImages/ModalImages';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { selectRoom } from '../../../../Redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 
@@ -17,6 +17,7 @@ function RoomItem({ id, name, type, text, maxPerson, img, price, modalImages, is
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [currentImage, setCurrentImage] = useState(0);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	return (
 		<div className={!isBook ? styles.room__item : styles.room__item__column}>
@@ -69,6 +70,7 @@ function RoomItem({ id, name, type, text, maxPerson, img, price, modalImages, is
 							<button
 								onClick={() => {
 									dispatch(selectRoom({ id, name, type, price }));
+									navigate(`/reservation/${type}`);
 								}}
 								className={styles.primary__btn}>
 								Забронировать

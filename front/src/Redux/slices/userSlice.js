@@ -6,7 +6,11 @@ export const sendFeedback = createAsyncThunk('user/sendFeedback', async (data, t
 	try {
 		const res = await axios.post(
 			`${BASE_URL}/feedback/`,
-			{ first_name: data.firstName, last_name: data.lastName, phone_number: data.phoneNumber },
+			{
+				first_name: data.first_name,
+				last_name: data.last_name,
+				phone_number: data.phone_number,
+			},
 			{
 				headers: { 'Content-Type': 'application/json' },
 			},
@@ -19,11 +23,11 @@ export const sendFeedback = createAsyncThunk('user/sendFeedback', async (data, t
 
 export const getRooms = createAsyncThunk('user/getRooms', async (data, thunkAPI) => {
 	try {
-		const res = await axios.get(
+		const res = await axios.post(
 			`${BASE_URL}/rooms/`,
 			{
-				start_date: data.startDate,
-				end_date: data.endDate,
+				start_date: data.start_date,
+				end_date: data.end_date,
 				persons: data.persons,
 				type: data.type,
 			},
@@ -40,13 +44,14 @@ export const getRooms = createAsyncThunk('user/getRooms', async (data, thunkAPI)
 });
 
 export const sendBook = createAsyncThunk('user/sendBook', async (data, thunkAPI) => {
+	console.log(data);
 	try {
 		const res = await axios.post(
 			`${BASE_URL}/book/`,
 			{
 				first_name: data.first_name,
 				last_name: data.last_name,
-				phone_humber: data.phone_number,
+				phone_number: data.phone_number,
 				comment: data.comment,
 				start_date: data.start_date,
 				end_date: data.end_date,
@@ -72,7 +77,7 @@ export const clearRooms = createAction('CLEAR-ROOMS');
 const userSlice = createSlice({
 	name: 'user',
 	initialState: {
-		data: { standart: 0, luxe: 1, luxeplus: 1, luxepremium: 0 },
+		data: null,
 		isLoading: false,
 		isError: false,
 		isSuccess: false,
@@ -129,12 +134,14 @@ const userSlice = createSlice({
 		});
 
 		builder.addCase(selectRoom, (state, action) => {
-			console.log(action.payload);
 			state.selectedRoomData = action.payload;
 		});
 
 		builder.addCase(clearRooms, (state) => {
 			state.data = null;
+			state.isLoading = false;
+			state.isError = false;
+			state.isSuccess = false;
 		});
 	},
 });

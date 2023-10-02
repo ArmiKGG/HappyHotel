@@ -97,7 +97,7 @@ function DateFrame({ main, toDate, setToDate, fromDate, setFromDate, persons, se
 					</div>
 				) : null}
 			</div>
-			{fromDate > toDate ? (
+			{fromDate > toDate && window.location.pathname === '/' && persons.adults > 0 ? (
 				<Link
 					to="/reservation"
 					className={styles.search__btn}

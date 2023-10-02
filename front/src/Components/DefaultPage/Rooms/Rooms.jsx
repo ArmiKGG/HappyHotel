@@ -36,7 +36,7 @@ const rooms = [
 	},
 	{
 		id: 3,
-		type: 'luxeplus',
+		type: 'luxe plus',
 		name: 'Номер Люкс +',
 		maxPerson: 3,
 		text: 'Этот вариант для тех, кто хочет насладиться еще большим комфортом с обновленным ремонтом',
@@ -52,7 +52,7 @@ const rooms = [
 	},
 	{
 		id: 4,
-		type: 'luxepremium',
+		type: 'luxe premium',
 		name: 'Номер Люкс Премиум',
 		maxPerson: 4,
 		text: 'Идеальный выбор для компании или семьи, которая ищет удобное и просторное проживание',
@@ -78,7 +78,7 @@ function Rooms({ data }) {
 			)}
 
 			{rooms.map((el, index) => {
-				if (data) {
+				if (data !== null) {
 					if (data[el.type] > 0) {
 						return (
 							<RoomItem

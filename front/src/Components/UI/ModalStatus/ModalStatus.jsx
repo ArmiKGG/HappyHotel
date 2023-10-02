@@ -2,12 +2,22 @@ import React from 'react';
 import styles from './ModalStatus.module.css';
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import { ReactComponent as Error } from './../../../Svg/errorSmile.svg';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-function ModalStatus({ isOpen, onClose, status }) {
+function ModalStatus({ isOpen, onClose, goMain }) {
+	const { isSuccess } = useSelector((state) => state.userSlice);
+	const navigate = useNavigate();
+
 	return (
 		<Modal
 			isOpen={isOpen}
-			onClose={onClose}>
+			onClose={() => {
+				if (goMain) {
+					navigate('/');
+				}
+				onClose();
+			}}>
 			<ModalOverlay />
 			<ModalContent
 				width={'36.125rem'}
@@ -21,7 +31,7 @@ function ModalStatus({ isOpen, onClose, status }) {
 					paddingInlineEnd="none"
 					paddingInlineStart="none"
 					className={styles.modal__body}>
-					{status ? (
+					{isSuccess ? (
 						<>
 							{' '}
 							<span className="success__text">Cпасибо!</span>

@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Feedback.module.css';
 import { cyrillicPattern, setClassNameByValid, telPattern } from '../../../constats';
 import { Input } from './../../UI/Input/Input';
@@ -25,33 +25,29 @@ function Feedback() {
 		validTel: false,
 		validChecked: false,
 	});
-	const [firstUpdate, setFirstUpdate] = useState(true);
 
 	const { nameValue, lastNameValue, telValue, checked } = formState;
 	const { validName, validLastName, validTel, validChecked } = validationState;
 
 	const handleSubmit = () => {
-		setValidationState({
-			validName: !cyrillicPattern.test(nameValue),
-			validLastName: !cyrillicPattern.test(lastNameValue),
-			validTel: !telPattern.test(telValue),
-			validChecked: !checked,
-		});
-	};
+		const isNameValid = cyrillicPattern.test(nameValue);
+		const isLastNameValid = cyrillicPattern.test(lastNameValue);
+		const isTelValid = telPattern.test(telValue);
+		const isCheckedValid = checked;
 
-	useLayoutEffect(() => {
-		console.log(firstUpdate);
-		if (firstUpdate) {
-			setFirstUpdate(false);
-		} else {
-			if (!validName && !validLastName && !validTel && !validChecked) {
-				console.log(validationState);
-				dispatch(sendFeedback({ first_name: nameValue, last_name: lastNameValue, phone_number: telValue }));
-				setFormState({ nameValue: '', lastNameValue: '', telValue: '', checked: false });
-				onOpen();
-			}
+		setValidationState({
+			validName: !isNameValid,
+			validLastName: !isLastNameValid,
+			validTel: !isTelValid,
+			validChecked: !isCheckedValid,
+		});
+
+		if (isNameValid && isLastNameValid && isTelValid && isCheckedValid) {
+			dispatch(sendFeedback({ first_name: nameValue, last_name: lastNameValue, phone_number: telValue }));
+			setFormState({ nameValue: '', lastNameValue: '', telValue: '', checked: false });
+			setTimeout(onOpen, 1000);
 		}
-	}, [validName, validLastName, validTel, validChecked]);
+	};
 
 	function changeCheckbox() {
 		setFormState({ ...formState, checked: !checked });
@@ -144,7 +140,7 @@ function Feedback() {
 			<ModalStatus
 				isOpen={isOpen}
 				onClose={onClose}
-				status={isSuccess}
+				goMain={false}
 			/>
 		</section>
 	);

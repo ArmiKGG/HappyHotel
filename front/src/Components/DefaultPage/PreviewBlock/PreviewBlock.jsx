@@ -4,6 +4,7 @@ import DateFrame from '../../UI/DateFrame/DateFrame';
 import { useDispatch } from 'react-redux';
 import { getRooms } from '../../../Redux/slices/userSlice';
 import { useToast } from '@chakra-ui/react';
+import { getDateToString } from '../../../constats';
 
 function PreviewBlock() {
 	const dispatch = useDispatch();
@@ -14,15 +15,31 @@ function PreviewBlock() {
 
 	const [persons, setPersons] = React.useState({ adults: 0, child: 0 });
 
-	const handleSubmit = (e) => {
+	const handleSubmit = () => {
 		if (fromDate > toDate) {
-			dispatch(getRooms({ start_date: toDate, end_date: fromDate, persons: persons.adults + persons.child }));
+			if (persons.adults > 0) {
+				dispatch(
+					getRooms({
+						start_date: getDateToString(toDate),
+						end_date: getDateToString(fromDate),
+						persons: persons.adults + persons.child,
+					}),
+				);
+			} else {
+				toast({
+					title: 'Внимание',
+					description: 'В заявке должен быть как минимум 1 взрослый человек',
+					status: 'warning',
+					duration: 4000,
+					isClosable: true,
+				});
+			}
 		} else {
 			toast({
 				title: 'Внимание',
 				description: 'Дата заезда должна быть раньше даты выезда',
 				status: 'warning',
-				duration: 9000,
+				duration: 4000,
 				isClosable: true,
 			});
 		}

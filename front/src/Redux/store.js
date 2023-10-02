@@ -4,7 +4,7 @@ import userSlice from './slices/userSlice';
 
 export const store = configureStore({
 	reducer: { userSlice: userSlice },
-	devTools: true,
+	devTools: false,
 	middleware: getDefaultMiddleware({
 		serializableCheck: false,
 	}),

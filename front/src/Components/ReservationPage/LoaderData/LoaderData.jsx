@@ -89,7 +89,21 @@ function LoaderData({
 		);
 
 	if (!isNotSelected && !isSelectedParamsChecker)
-		return <div>К сожалению, в указанный Вами период нет свободных номеров</div>;
+		return (
+			<>
+				<DateFrame
+					main={false}
+					toDate={toDate}
+					setToDate={setToDate}
+					fromDate={fromDate}
+					setFromDate={setFromDate}
+					persons={persons}
+					setPersons={setPersons}
+					handleSubmit={handleSubmit}
+				/>
+				<div>К сожалению, в указанный Вами период нет свободных номеров</div>
+			</>
+		);
 
 	return (
 		<div className={styles.page__data}>
@@ -165,7 +179,7 @@ function LoaderData({
 					</div>
 					<div className={styles.reservation__data__result}>
 						<span>Итого</span>
-						<span>{getNightsCount(toDate, fromDate) + 1 * selectedRoomData.price} ₽</span>
+						<span>{(getNightsCount(toDate, fromDate) + 1) * selectedRoomData.price} ₽</span>
 					</div>
 				</div>
 			</div>
