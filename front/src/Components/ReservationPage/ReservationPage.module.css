@@ -1,0 +1,18 @@
+.reservation__page {
+	width: 100%;
+	min-height: 40vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	gap: 1.5rem;
+
+	color: var(--accent-color, #875b52);
+
+	/* text small */
+	font-family: 'Noto Sans';
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 160%; /* 1.6rem */
+}

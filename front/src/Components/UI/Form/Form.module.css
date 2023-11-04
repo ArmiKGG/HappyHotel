@@ -1,0 +1,64 @@
+.primary__btn {
+	width: 13.4375rem;
+
+	border-radius: 0.5rem;
+	background: var(--accent-color, #875b52);
+
+	/* btn primary */
+	box-shadow: -2px 4px 5px 0px rgba(148, 93, 60, 0.06);
+	padding: 0.75rem 2.44rem;
+
+	color: var(--text-color, #fff);
+	text-align: center;
+
+	/* text small semibold */
+	font-family: 'Noto Sans';
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 160%; /* 1.6rem */
+
+	margin-top: 3.12rem;
+}
+
+.checkbox {
+	display: flex;
+	gap: 0.3rem;
+	color: var(--accent-color, #875b52);
+
+	/* text small */
+	font-family: 'Noto Sans';
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 160%; /* 1.6rem */
+}
+
+.form {
+	width: 33.8125rem;
+	height: 47.125rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+
+	border-radius: 0.5rem;
+	border: 1px solid var(--ui-accent, #875b52);
+	background: var(--ui-white, #fff);
+
+	padding: 3.13rem 4.1rem;
+}
+
+.underline__text {
+	text-decoration: underline;
+}
+
+@media (max-width: 460px) {
+	.form {
+		width: 100%;
+		height: auto;
+		padding: 2rem;
+	}
+	.primary__btn {
+		margin-top: 7rem;
+	}
+}

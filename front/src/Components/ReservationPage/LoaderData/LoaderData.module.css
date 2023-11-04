@@ -1,0 +1,115 @@
+.page__data {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+}
+
+.data__title {
+	color: var(--accent-color, #875b52);
+	/* H3 */
+	font-family: 'Noto Sans';
+	font-size: 1.625rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 150%; /* 2.4375rem */
+}
+
+.data__block {
+	display: flex;
+	flex-direction: column;
+	gap: 1.9rem;
+}
+
+.reservation__data {
+	width: 33.75rem;
+	height: 47.125rem;
+	border-radius: 0.5rem;
+	border: 1px solid var(--accent-color, #875b52);
+	background: var(--gray-color, #fff9f8);
+
+	padding: 3.13rem 4.1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.reservation__data__block {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.reservation__data__block__title {
+	display: flex;
+	gap: 0.6rem;
+	color: var(--accent-color, #875b52);
+	/* text small */
+	font-family: 'Noto Sans';
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 160%; /* 1.6rem */
+}
+.reservation__data__block__text {
+	color: var(--accent-color, #875b52);
+	/* H3 */
+	font-family: 'Noto Sans';
+	font-size: 1.625rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 150%; /* 2.4375rem */
+}
+
+.reservation__data__block__info {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+
+	color: var(--accent-color, #875b52);
+	/* text small bold */
+	font-family: 'Noto Sans';
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 160%; /* 1.6rem */
+}
+
+.reservation__data__result {
+	border-top: 1px solid var(--accent-color);
+	padding: 0.31rem 0;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.reservation__data__result span {
+	color: var(--accent-color, #875b52);
+	font-size: 1.625rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 150%; /* 2.4375rem */
+}
+
+@media (max-width: 460px) {
+	.page__data {
+		flex-direction: column;
+	}
+
+	.reservation__data {
+		width: 100%;
+		height: auto;
+		padding: 1.5rem;
+		gap: 3rem;
+	}
+	.reservation__data__block__text {
+		font-size: 1.3rem;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 130%;
+	}
+
+	.reservation__data__block__info:nth-child(2) {
+		text-align: right;
+	}
+}
